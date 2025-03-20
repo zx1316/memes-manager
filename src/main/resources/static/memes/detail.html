@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Meme详情</title>
+    <link href="https://cdn.staticfile.net/twitter-bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #original-img {
+            display: block;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="fixed-top container bg-body-tertiary py-2 d-flex justify-content-between align-items-center" id="header">
+    <span class="h3 my-1" id="header-heading">Meme详情</span>
+</div>
+
+<div class="container bg-body p-3" id="main-container">
+    <div class="mb-3">
+        <h4>原图</h4>
+        <img id="original-img" src="">
+    </div>
+    <div class="mb-3">
+        <h4>上传时间</h4>
+        <span id="upload-time-text"></span>
+    </div>
+    <div class="mb-3">
+        <label for="tags-textarea" class="form-label h4">标签</label>
+        <textarea id="tags-textarea" class="form-control" rows="3"></textarea>
+    </div>
+    <div class="d-flex flex-column flex-md-row gap-2 mb-3">
+        <button class="btn btn-primary flex-grow-1" id="save-btn">保存标签</button>
+        <button class="btn btn-outline-danger flex-grow-1" id="delete-btn" data-bs-toggle="modal" data-bs-target="#delete-modal">删除Meme</button>
+    </div>
+</div>
+
+<div class="modal fade" id="delete-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" id="delete-modal-header">
+                <h4 class="modal-title">⚠️警告</h4>
+            </div>
+            <div class="modal-body" id="delete-modal-body">确定要删除这个Meme吗？</div>
+            <div class="modal-footer" id="delete-modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button class="btn btn-danger" id="confirm-delete-btn" data-bs-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="auth-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">❌错误</h4>
+            </div>
+            <div class="modal-body">你没有足够的权限完成该操作！</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                <a class="btn btn-primary" href="/login.html">重新认证</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="info-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="info-modal-title"></h4>
+            </div>
+            <div class="modal-body" id="info-modal-body"></div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/state-helper.js"></script>
+<script src="/js/memes/main-auto-margin-top.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/memes/detail.js"></script>
+</body>
+</html>

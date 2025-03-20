@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Meme管理器</title>
+    <link href="https://cdn.staticfile.net/twitter-bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/memes/manager.css" rel="stylesheet">
+    <link href="/css/icon-button.css" rel="stylesheet">
+    <style id="auto-thumbnail-style"></style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="add" viewBox="0 0 24 24">
+        <path d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z"/>
+    </symbol>
+    <symbol id="filter" viewBox="0 0 24 24">
+        <path d="M11 20q-.425 0-.712-.288T10 19v-6L4.2 5.6q-.375-.5-.112-1.05T5 4h14q.65 0 .913.55T19.8 5.6L14 13v6q0 .425-.288.713T13 20z"/>
+    </symbol>
+    <symbol id="delete" viewBox="0 0 24 24">
+        <path d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"/>
+    </symbol>
+    <symbol id="add-check" viewBox="0 0 24 24">
+        <path d="m12.7 14.05l5.65-5.65l-1.4-1.45l-4.25 4.25l-2.15-2.1l-1.4 1.4zM8 18q-.825 0-1.412-.587T6 16V4q0-.825.588-1.412T8 2h12q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm-4 4q-.825 0-1.412-.587T2 20V6h2v14h14v2z"/>
+    </symbol>
+    <symbol id="check-all" viewBox="0 0 24 24">
+        <path d="M.41 13.41L6 19l1.41-1.42L1.83 12m20.41-6.42L11.66 16.17L7.5 12l-1.43 1.41L11.66 19l12-12M18 7l-1.41-1.42l-6.35 6.35l1.42 1.41z"/>
+    </symbol>
+    <symbol id="remove" viewBox="0 0 24 24">
+        <path d="M5 13v-2h14v2z"/>
+    </symbol>
+    <symbol id="help" viewBox="0 0 24 24">
+        <path d="M11.95 18q.525 0 .888-.363t.362-.887t-.362-.888t-.888-.362t-.887.363t-.363.887t.363.888t.887.362m-.9-3.85h1.85q0-.825.188-1.3t1.062-1.3q.65-.65 1.025-1.238T15.55 8.9q0-1.4-1.025-2.15T12.1 6q-1.425 0-2.312.75T8.55 8.55l1.65.65q.125-.45.563-.975T12.1 7.7q.8 0 1.2.438t.4.962q0 .5-.3.938t-.75.812q-1.1.975-1.35 1.475t-.25 1.825M12 22q-2.075 0-3.9-.787t-3.175-2.138T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/>
+    </symbol>
+    <symbol id="checkbox-marked" viewBox="0 0 24 24">
+        <path d="m10 17l-5-5l1.41-1.42L10 14.17l7.59-7.59L19 8m-7-6A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"/>
+    </symbol>
+    <symbol id="checkbox" viewBox="0 0 24 24">
+        <path d="M12 20a8 8 0 0 1-8-8a8 8 0 0 1 8-8a8 8 0 0 1 8 8a8 8 0 0 1-8 8m0-18A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"/>
+    </symbol>
+    <symbol id="checkbox-bg" viewBox="0 0 24 24">
+        <path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"/>
+    </symbol>
+</svg>
+
+<div class="fixed-top container bg-body-tertiary py-2 d-flex justify-content-between align-items-center" id="header">
+    <span class="h3 my-1" id="header-heading">Meme管理器</span>
+    <div>
+        <button class="btn btn-primary auto-fit-ib lh-1" id="add-btn" data-bs-toggle="modal" data-bs-target="#upload-modal">
+            <svg class="bi"><use href="#add"></use></svg>
+        </button>
+        <button class="btn btn-danger auto-fit-ib lh-1 visually-hidden" id="delete-btn" data-bs-toggle="modal" data-bs-target="#delete-modal">
+            <svg class="bi"><use href="#delete"></use></svg>
+        </button>
+        <button class="btn btn-outline-primary auto-fit-ib lh-1" id="filter-btn" data-bs-toggle="modal" data-bs-target="#filter-modal">
+            <svg class="bi"><use href="#filter"></use></svg>
+        </button>
+        <button class="btn btn-outline-primary auto-fit-ib lh-1 visually-hidden" id="check-all-btn">
+            <svg class="bi"><use href="#check-all"></use></svg>
+        </button>
+        <button class="btn btn-outline-primary auto-fit-ib lh-1" id="add-check-btn">
+            <svg class="bi"><use href="#add-check"></use></svg>
+        </button>
+    </div>
+</div>
+
+<div class="container bg-body p-0" id="main-container">
+    <div class="d-flex flex-wrap" id="img-shower"></div>
+    <div class="my-3 text-center small opacity-50 visually-hidden" id="end-text">已显示全部</div>
+    <div class="pt-4 d-flex flex-column align-items-center gap-3" id="waiting-div">
+        <div class="spinner-border text-primary" role="status"></div>
+        <span class="h5">正在处理，请稍候...</span>
+    </div>
+</div>
+
+<div class="modal fade" id="filter-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">筛选</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset class="mb-3">
+                    <legend class="h5">模式</legend>
+                    <div class="form-check">
+                        <input type="radio" name="radios" class="form-check-input" id="tag-query-radio" checked="checked">
+                        <label class="form-check-label" for="tag-query-radio">满足全部标签</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="radios" class="form-check-input" id="fuzzy-query-radio">
+                        <label class="form-check-label" for="fuzzy-query-radio">模糊匹配</label>
+                    </div>
+                </fieldset>
+                <div class="mb-2">
+                    <label for="tags-input" class="form-label h5" id="filter-label"></label>
+                    <textarea class="form-control" id="tags-input"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                <button class="btn btn-primary" id="apply-filter-btn" data-bs-dismiss="modal">应用</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="upload-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">添加</h4>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="file-input" class="form-label h5">
+                        图片
+                        <svg class="help-i" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="只支持jpg、png、gif和webp">
+                            <use href="#help"></use>
+                        </svg>
+                    </label>
+                    <input type="file" class="form-control" id="file-input" accept=".png, .jpg, .jpeg, .gif, .webp">
+                </div>
+                <div class="mb-2">
+                    <label for="tags-input1" class="form-label h5">
+                        标签
+                        <svg class="help-i" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="多个标签间用英文逗号隔开，忽略标签首尾的空白符，每个标签最多48字符">
+                            <use href="#help"></use>
+                        </svg>
+                    </label>
+                    <textarea class="form-control" id="tags-input1"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                <button class="btn btn-primary" id="upload-confirm-btn" data-bs-dismiss="modal">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="info-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="info-modal-title"></h4>
+            </div>
+            <div class="modal-body" id="info-modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="delete-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" id="delete-modal-header">
+                <h4 class="modal-title">⚠️警告</h4>
+            </div>
+            <div class="modal-body" id="delete-modal-body"></div>
+            <div class="modal-footer" id="delete-modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete-btn" data-bs-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="auth-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">❌错误</h4>
+            </div>
+            <div class="modal-body">你没有足够的权限完成该操作！</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                <a class="btn btn-primary" href="/login.html">重新认证</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/state-helper.js"></script>
+<script src="/js/memes/main-auto-margin-top.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/memes/manager.js"></script>
+</body>
+</html>

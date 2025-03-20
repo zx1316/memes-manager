@@ -1,0 +1,24 @@
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.auto-fit-ib svg {
+    width: 20px;
+    height: 20px;
+}
+
+.auto-fit-ib {
+    padding: 0.33rem !important;
+}
+
+@media(min-width: 768px) {
+    .auto-fit-ib svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .auto-fit-ib {
+        padding: 0.4rem !important;
+    }
+}
