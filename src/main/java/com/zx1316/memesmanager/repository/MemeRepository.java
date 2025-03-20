@@ -21,10 +21,10 @@ public interface MemeRepository extends JpaRepository<Meme, Long> {
     List<Long> findIdsByTagsSubset(Set<String> tags, int tagCount);
 
     // 模糊查询图片
-    @Query("SELECT DISTINCT m.id FROM Meme m JOIN m.memeTags t WHERE t.tagName LIKE %:keyword% ORDER BY m.uploadTime DESC")
+    @Query("SELECT m.id FROM Meme m JOIN m.memeTags t WHERE t.tagName LIKE %:keyword% GROUP BY m.id ORDER BY m.uploadTime DESC")
     Page<Long> findIdsByKeyword(String keyword, Pageable pageable);
 
-    @Query("SELECT DISTINCT m.id FROM Meme m JOIN m.memeTags t WHERE t.tagName LIKE %:keyword% ORDER BY m.uploadTime DESC")
+    @Query("SELECT m.id FROM Meme m JOIN m.memeTags t WHERE t.tagName LIKE %:keyword% GROUP BY m.id ORDER BY m.uploadTime DESC")
     List<Long> findIdsByKeyword(String keyword);
 
     // 查询所有图片
